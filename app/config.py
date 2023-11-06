@@ -5,9 +5,7 @@ Author: Yashwith Alva
 Date: 6-11-2023
 """
 
-
 import os
-
 
 ##########################################################
 # Base config class used for configuring the app.
