@@ -1,4 +1,10 @@
-# File used for setting up different configuration for the app
+"""
+This module is used for setting up different configuration for the app
+
+Author: Yashwith Alva
+Date: 6-11-2023
+"""
+
 
 import os
 

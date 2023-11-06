@@ -1,3 +1,10 @@
+'''
+This module is used for interacting with database
+
+Author: yashwith alva
+Date: 6-11-2023
+'''
+
 # Named the file as mysql_db because may end up using the mongo database.
 
 from flask import current_app
