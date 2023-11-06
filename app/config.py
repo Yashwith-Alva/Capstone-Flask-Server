@@ -1,10 +1,21 @@
+# File used for setting up different configuration for the app
+
 import os
 
+
+##########################################################
+# Base config class used for configuring the app.
+# All the config files are similar to POJO or struct(cpp)
+##########################################################
 class Config:
     SECRET_KEY = "yashwith_secret"
     DEBUG = False
     TESTING = False
     
+##########################################################
+# Development is configured to run on DEBUG mode
+# TESTING is set to false
+##########################################################
 class DevelopmentConfig(Config):
     DEBUG = True
     MYSQL_HOST = 'localhost'
@@ -13,6 +24,9 @@ class DevelopmentConfig(Config):
     MYSQL_PASSWORD = 'Yashwith@2002'
     MYSQL_DB = 'arfoodmenu'
     
+##########################################################
+# Testing is set to run on debug mode with testing.
+##########################################################
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
@@ -23,6 +37,10 @@ class TestingConfig(Config):
     MYSQL_DB = 'arfoodmenu'
     PRESERVE_CONTEXT_EXCEPTION = True
     
+##########################################################
+# Production config has both testing and debug set to off
+# Remember to change the port id and host to cloud
+##########################################################
 class ProductionConfig(Config):
     MYSQL_HOST = 'localhost'
     MYSQL_PORT = 3306
@@ -37,6 +55,9 @@ config_by_name = dict(
     prod = ProductionConfig
 )
 
+##########################################################
+# Get config based on the environment app is running on
+##########################################################
 def get_config():
     environment = os.getenv('FLASK_ENV', 'development')
     if environment == 'production':
@@ -45,7 +66,3 @@ def get_config():
         return TestingConfig
     else:
         return DevelopmentConfig
-
-
-# Unlock the key for accessing API access.
-#key = Config.SECRET_KEY
