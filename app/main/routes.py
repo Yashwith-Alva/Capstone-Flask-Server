@@ -6,10 +6,10 @@ Date: 6-11-2023
 """
 
 from . import main_blueprint
-from app.main.controllers import restaurant_controller
+from main.controllers import restaurant_controller
 
 # create an object out of the controller
-restaurantController = restaurant_controller.RestaurantController()
+restaurantController = restaurant_controller()
 
 @main_blueprint.route('/resturant', methods=['GET'])
 def get_users():

@@ -6,7 +6,7 @@ Date: 6-11-2023
 '''
 
 import mysql.connector
-from app.main.models.user import User
+from models.user import User
 
 class UserService:
     def __init__(self, db_connection):

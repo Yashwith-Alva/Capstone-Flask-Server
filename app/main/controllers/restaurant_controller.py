@@ -3,13 +3,12 @@ A simplified interface used for routing
 '''
 
 from flask import jsonify
-from app.main.services.restaurant_service import RestaurantService
-import app.main.models.restaurant
-from app.mysql_db import get_sqldb
+from services.restaurant_service import RestaurantService
+import main.models.restaurant
 
 class RestaurantController:
     def __init__(self):
-        self.restaurantService_ = RestaurantService(get_sqldb())
+        self.restaurantService_ = RestaurantService()
 
     # Create a new restaurant
     def create_restaurant(self, request):
