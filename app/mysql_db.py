@@ -53,6 +53,6 @@ def close_sqldb(e=None):
 def init_sqldb():
     db = get_sqldb()
     cursor = db.cursor()
-    
+    # Creating database ..etc
     db.commit()
     cursor.close()

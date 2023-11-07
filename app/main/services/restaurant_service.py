@@ -3,7 +3,7 @@ This module provides services that interact with restaurant table
 => Restaurant Id is auto generated, hence not part of the computation
 """
 import mysql.connector
-from models.restaurant import Restaurant
+from app.main.models.restaurant import Restaurant
 
 class RestaurantService:
     def __init__(self, db_connection):
