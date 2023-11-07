@@ -50,12 +50,22 @@ def get_restaurant_by_qr(qr):
     if db_conn is not None:
         restaurantController_ = restaurant_controller.RestaurantController(db_conn)
         result = restaurantController_.get_restaurant_by_qr(qr)
-        if result is not None:
-            return result
-        else:
-            return jsonify({'error': 'No database is connected'}), 500
+        return result
+    else:
+        return jsonify({'error': 'No database is connected'}), 500
         
         
+# [POST] Create a new Restaurant
+@main_blueprint.route('/restaurant/register', methods=['POST'])
+def create_restaurant():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        restaurantController_ = restaurant_controller.RestaurantController(db_conn)
+        result = restaurantController_.create_restaurant(request)
+        return result
+    else:
+        return jsonify({'error': 'No database is connected'}), 500
+
 ############################################################################################
 # USER METHODS
 ############################################################################################
