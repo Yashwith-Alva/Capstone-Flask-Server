@@ -5,11 +5,11 @@ A simplified interface used for routing
 from flask import jsonify
 from app.main.services.restaurant_service import RestaurantService
 import app.main.models.restaurant
-from app.mysql_db import get_sqldb
+from flask import g
 
 class RestaurantController:
-    def __init__(self):
-        self.restaurantService_ = RestaurantService(get_sqldb())
+    def __init__(self, db_connection):
+        self.restaurantService_ = RestaurantService(db_connection)
 
     # Create a new restaurant
     def create_restaurant(self, request):
@@ -29,7 +29,7 @@ class RestaurantController:
     # Return all restaurants
     def get_all_restaurants(self):
         restaurants = self.restaurantService_.get_all_restaurants()
-        restaurants_list = [{'rid':row.restaurant_id, 'resName': row.restaurant_name, 'about': row.about, 'qr': row.qr, 'address':row.address, 'locationLink': row.locationLink} for row in restaurants]
+        restaurants_list = [{'rid':row.rid, 'resName': row.resName, 'about': row.about, 'qr': row.qr, 'address':row.address, 'locationLink': row.locationLink} for row in restaurants]
         return jsonify(restaurants_list), 200
     
     

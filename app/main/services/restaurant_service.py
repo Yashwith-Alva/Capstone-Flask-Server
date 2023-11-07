@@ -27,6 +27,7 @@ class RestaurantService:
         cursor.execute(select_query)
         restaurants = []
         for row in cursor.fetchall():
+            print(row)
             restaurant = Restaurant(row['rid'], row['resName'], row['about'], row['qr'], row['address'], row['locationLink'])
             restaurants.append(restaurant)
         cursor.close()
