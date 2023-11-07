@@ -3,6 +3,7 @@ This module provides services that interact with restaurant table
 => Restaurant Id is auto generated, hence not part of the computation
 """
 from app.main.models.restaurant import Restaurant
+from app.logErrrors import clog
 
 class RestaurantService:
     def __init__(self, db_connection):

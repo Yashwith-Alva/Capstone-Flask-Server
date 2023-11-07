@@ -4,8 +4,6 @@ A simplified interface used for routing
 
 from flask import jsonify
 from app.main.services.restaurant_service import RestaurantService
-import app.main.models.restaurant
-from flask import g
 
 class RestaurantController:
     def __init__(self, db_connection):

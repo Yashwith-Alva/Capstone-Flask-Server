@@ -12,6 +12,17 @@ from flask import jsonify, request
 from markupsafe import escape
 from app.mysql_db import get_sqldb
 from app.main.controllers import restaurant_controller
+from app.main.controllers import user_controller
+
+
+
+############################################################################################
+# INTERFACE METHODS
+############################################################################################
+
+# [POST] Add new Restaurant
+# [POST] Add new User and Menu with user_id, password, rid
+
 
 
 ############################################################################################
@@ -36,9 +47,9 @@ def restaurant_by_id(restaurant_id):
     db_conn = get_sqldb()
     if db_conn is not None:
         restaurantController_ = restaurant_controller.RestaurantController(db_conn)
-        result =  restaurantController_.get_restaurant_by_id(restaurant_id)
-        if result is not None:
-            return result
+        response =  restaurantController_.get_restaurant_by_id(restaurant_id)
+        if response is not None:
+            return response
     else:
         return jsonify({'error' : 'No database connected'}), 500
     
@@ -49,8 +60,8 @@ def get_restaurant_by_qr(qr):
     db_conn = get_sqldb()
     if db_conn is not None:
         restaurantController_ = restaurant_controller.RestaurantController(db_conn)
-        result = restaurantController_.get_restaurant_by_qr(qr)
-        return result
+        response = restaurantController_.get_restaurant_by_qr(qr)
+        return response
     else:
         return jsonify({'error': 'No database is connected'}), 500
         
@@ -61,8 +72,8 @@ def create_restaurant():
     db_conn = get_sqldb()
     if db_conn is not None:
         restaurantController_ = restaurant_controller.RestaurantController(db_conn)
-        result = restaurantController_.create_restaurant(request)
-        return result
+        response = restaurantController_.create_restaurant(request)
+        return response
     else:
         return jsonify({'error': 'No database is connected'}), 500
 
@@ -70,13 +81,25 @@ def create_restaurant():
 # USER METHODS
 ############################################################################################
 
+# [GET] Fetch all user information
 
+# [POST] UserId and Password and rId
+# Check if rId already exists. Since there is a foreign key constraint this may crash
+@main_blueprint.route('/user/register', methods = ['POST'])
+def create_user():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        userController_ = user_controller.UserController(db_conn)
+        response = userController_.create_user(request)
+        return response
+    else:
+        return jsonify({'error': 'No database is connected'})
 
 ############################################################################################
 # MENU METHODS
 ############################################################################################
 
-
+# [POST] Create a menu Item
 
 ############################################################################################
 # MENU ITEMS METHODS

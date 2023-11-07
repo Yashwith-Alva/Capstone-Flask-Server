@@ -15,6 +15,7 @@ class Config:
     SECRET_KEY = "yashwith_secret"
     DEBUG = False
     TESTING = False
+    CAPSTONE_LOGGER = True
     
 ##########################################################
 # Development is configured to run on DEBUG mode
@@ -52,6 +53,7 @@ class ProductionConfig(Config):
     MYSQL_PASSWORD = 'Yashwith@2002'
     MYSQL_DB = 'arfoodmenu'
     PROPOGATE_EXCEPTIONS = True
+    CAPSTONE_LOGGER = False
     
 config_by_name = dict(
     dev = DevelopmentConfig,
