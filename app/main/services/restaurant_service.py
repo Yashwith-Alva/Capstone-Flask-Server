@@ -55,9 +55,7 @@ class RestaurantService:
         if row:
             return row
         else:
-            return None
-        
-        
+            return None     
         
     # Delete restaurant
     def delete_restaurant(self, restaurant_id):
