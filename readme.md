@@ -21,13 +21,21 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     *JSON FORMAT for creating restaurant*
     ```
     {
-        "resName": "restaurant name",
-        "about": "restaurant description",
-        "qr": null,
-        "address": "city",
-        "locationLink": "Maps link"
+        "resName": "<restaurant_name>",
+        "about": "<restaurant_description>",
+        "qr": "<generated_qr_code>",
+        "address": "<city>",
+        "locationLink": "<maps_link>"
     }
     ```
 
 ## User
-
+1. [POST] Create an User `/user/register`
+    *JSON format for creating user*
+    ```
+    {
+        "usrId": "<user_id>",
+        "usrpassword": "<user_password>",
+        "rid": "<restaurant_id>"
+    }
+    ```
