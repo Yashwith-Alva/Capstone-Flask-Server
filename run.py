@@ -8,5 +8,9 @@ os.environ['FLASK_ENV'] = 'development'
 
 app = create_app()
 
+@app.route("/")
+def index():
+    return "Homepage"
+
 if __name__ == '__main__':
     app.run()
