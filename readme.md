@@ -10,6 +10,16 @@ All API start with `http://localhost::5000/`
 2. GET restaurant by id `/restaurant/{id}`
 3. GET restaurant by qr `/restaurant/qrcode/{qr}`
 4. POST create restaurant `/restaurant/register`
+    JSON FORMAT
+    ```
+    {
+        "resName": "restaurant name",
+        "about": "restaurant description",
+        "qr": null,
+        "address": "city",
+        "locationLink": "Maps link"
+    }
+    ```
 
 
 ## Flask Integration with the Server
