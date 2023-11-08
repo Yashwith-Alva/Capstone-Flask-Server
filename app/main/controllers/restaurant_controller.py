@@ -3,7 +3,7 @@ A simplified interface used for routing
 '''
 
 from flask import jsonify
-from app.main.services.restaurant_service import RestaurantService
+from app.main.services.restaurant_service import RestaurantService, makeResponse
 
 class RestaurantController:
     def __init__(self, db_connection):
@@ -19,7 +19,7 @@ class RestaurantController:
         location_link = data.get('locationLink')
         
         if not resName:
-            return jsonify({'status' : 'error', 'message' : 'Restaurant name is required'}), 400
+            return makeResponse.bad_request("Server Error", "restaurant_name is required")
         
         return self.restaurantService_.create_restaurant(resName, about, qr, address, location_link)
         

@@ -3,7 +3,7 @@ This module provides a straight forward interface to perform several operations.
 '''
 
 from flask import jsonify
-from app.main.services.user_service import UserService
+from app.main.services.user_service import UserService, makeResponse
 
 # Class which provides interface to routes
 class UserController:
@@ -18,7 +18,7 @@ class UserController:
         restaurant_id = data.get('rid')
         
         if not restaurant_id:
-            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
+            return makeResponse.bad_request("Server Error", "restaurant_id is required")
         response = self.userService_.create_user(user_id, password, restaurant_id)
         return response
         
@@ -28,8 +28,9 @@ class UserController:
         data = request.get_json()
         user_id = data.get('usrId')
         restaurant_id = data.get('rid')
+        
         if not restaurant_id:
-            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
+            return makeResponse.bad_request("Server Error", "restaurant_id is required")
         response = self.userService_.update_userId(user_id, restaurant_id)
         return response
         
@@ -39,7 +40,8 @@ class UserController:
         data = request.get_json()
         password = data.get('usrpassword')
         restaurant_id = data.get('rid')
+        
         if not restaurant_id:
-            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
+            return makeResponse.bad_request("Server Error", "restaurant_id is required")
         response = self.userService_.update_password(password, restaurant_id)
         return response
