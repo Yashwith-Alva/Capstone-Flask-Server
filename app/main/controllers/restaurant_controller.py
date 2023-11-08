@@ -19,31 +19,22 @@ class RestaurantController:
         location_link = data.get('locationLink')
         
         if not resName:
-            return jsonify({'error' : 'Restaurant name is required'}), 400
+            return jsonify({'status' : 'error', 'message' : 'Restaurant name is required'}), 400
         
-        restaurant_id = self.restaurantService_.create_restaurant(resName, about, qr, address, location_link)
-        return jsonify({'message': 'Restaurant created Successfully', 'restaurant id': restaurant_id}), 201
-    
+        return self.restaurantService_.create_restaurant(resName, about, qr, address, location_link)
+        
     # Return all restaurants
     def get_all_restaurants(self):
-        restaurants = self.restaurantService_.get_all_restaurants()
-        restaurants_list = [{'rid':row.rid, 'resName': row.resName, 'about': row.about, 'qr': row.qr, 'address':row.address, 'locationLink': row.locationLink} for row in restaurants]
-        return jsonify(restaurants_list), 200
+        response = self.restaurantService_.get_all_restaurants()
+        return response
     
     # Return restaurant by id
     def get_restaurant_by_id(self, id):
-        restaurant = self.restaurantService_.get_restaurant_by_id(id)
-        if restaurant:
-            return jsonify(restaurant), 200
-        else:
-            return jsonify(), 404
-        
-    
+        response = self.restaurantService_.get_restaurant_by_id(id)
+        return response
+         
     # Return restaurant by qr
     def get_restaurant_by_qr(self, qr):
-        restaurant = self.restaurantService_.get_restaurant_by_qr(qr)
-        if restaurant:
-            return jsonify(restaurant), 200
-        else:
-            return jsonify(), 404
+        response = self.restaurantService_.get_restaurant_by_qr(qr)
+        return response
         

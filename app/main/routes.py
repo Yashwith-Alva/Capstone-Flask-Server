@@ -9,8 +9,8 @@ Date: 6-11-2023
 
 from . import main_blueprint
 from flask import jsonify, request
-from markupsafe import escape
 from app.mysql_db import get_sqldb
+from app.main.sqlErrorHandler import db_conn_error
 from app.main.controllers import restaurant_controller
 from app.main.controllers import user_controller
 
@@ -37,7 +37,7 @@ def restaurant_methods():
         restaurantController_= restaurant_controller.RestaurantController(db_conn)
         return restaurantController_.get_all_restaurants()
     else:
-        return jsonify({'error' : 'No database connected'}), 500
+        return db_conn_error()
     
     
 # [GET] Restaurant with Unique Id
@@ -48,10 +48,9 @@ def restaurant_by_id(restaurant_id):
     if db_conn is not None:
         restaurantController_ = restaurant_controller.RestaurantController(db_conn)
         response =  restaurantController_.get_restaurant_by_id(restaurant_id)
-        if response is not None:
-            return response
+        return response
     else:
-        return jsonify({'error' : 'No database connected'}), 500
+        return db_conn_error
     
 
 # [GET] Restaurant with Unique QR
@@ -63,7 +62,7 @@ def get_restaurant_by_qr(qr):
         response = restaurantController_.get_restaurant_by_qr(qr)
         return response
     else:
-        return jsonify({'error': 'No database is connected'}), 500
+        return db_conn_error()
         
         
 # [POST] Create a new Restaurant
@@ -75,7 +74,7 @@ def create_restaurant():
         response = restaurantController_.create_restaurant(request)
         return response
     else:
-        return jsonify({'error': 'No database is connected'}), 500
+        return db_conn_error()
 
 ############################################################################################
 # USER METHODS
@@ -93,7 +92,7 @@ def create_user():
         response = userController_.create_user(request)
         return response
     else:
-        return jsonify({'error': 'No database is connected'})
+        return db_conn_error()
 
 ############################################################################################
 # MENU METHODS

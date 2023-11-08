@@ -18,12 +18,10 @@ class UserController:
         restaurant_id = data.get('rid')
         
         if not restaurant_id:
-            return jsonify({'error' : 'restaurant Id is required'}), 400
+            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
         res = self.userService_.create_user(user_id, password, restaurant_id)
-        if res == 1:
-            return jsonify({'message' : res}), 201
-        else:
-            return jsonify({'error' : res}), 403
+        return res
+        
     
     # Fetch all users
     def get_all_users(self):
