@@ -14,17 +14,6 @@ from app.main.sqlErrorHandler import db_conn_error
 from app.main.controllers import restaurant_controller
 from app.main.controllers import user_controller
 
-
-
-############################################################################################
-# INTERFACE METHODS
-############################################################################################
-
-# [POST] Add new Restaurant
-# [POST] Add new User and Menu with user_id, password, rid
-
-
-
 ############################################################################################
 # RESTAURANT METHODS
 ############################################################################################
@@ -76,14 +65,13 @@ def create_restaurant():
     else:
         return db_conn_error()
 
+
+
 ############################################################################################
 # USER METHODS
 ############################################################################################
 
-# [GET] Fetch all user information
-
 # [POST] UserId and Password and rId
-# Check if rId already exists. Since there is a foreign key constraint this may crash
 @main_blueprint.route('/user/register', methods = ['POST'])
 def create_user():
     db_conn = get_sqldb()
@@ -94,10 +82,31 @@ def create_user():
     else:
         return db_conn_error()
 
+# [POST] UserId and restaurant_id
+@main_blueprint.route('/update/user/userid', methods = ['POST'])
+def update_userid():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        userController_ = user_controller.UserController(db_conn)
+        response = userController_.update_userId(request)
+        return response
+    else:
+        return db_conn_error()
+
+# [POST] Password and restaurant_id
+@main_blueprint.route('/update/user/password', methods = ['POST'])
+def update_password():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        userController_ = user_controller.UserController(db_conn)
+        response = userController_.update_password(request)
+        return response
+    else:
+        return db_conn_error()
+
 ############################################################################################
 # MENU METHODS
 ############################################################################################
-
 # [POST] Create a menu Item
 
 ############################################################################################

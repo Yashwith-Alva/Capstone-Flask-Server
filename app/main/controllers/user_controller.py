@@ -19,10 +19,27 @@ class UserController:
         
         if not restaurant_id:
             return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
-        res = self.userService_.create_user(user_id, password, restaurant_id)
-        return res
+        response = self.userService_.create_user(user_id, password, restaurant_id)
+        return response
         
     
-    # Fetch all users
-    def get_all_users(self):
-        pass
+    # Update user id
+    def update_userId(self, request):
+        data = request.get_json()
+        user_id = data.get('usrId')
+        restaurant_id = data.get('rid')
+        if not restaurant_id:
+            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
+        response = self.userService_.update_userId(user_id, restaurant_id)
+        return response
+        
+        
+    # Update password
+    def update_password(self, request):
+        data = request.get_json()
+        password = data.get('usrpassword')
+        restaurant_id = data.get('rid')
+        if not restaurant_id:
+            return jsonify({'status' : 'error', 'message' : 'restaurant Id is required'}), 400
+        response = self.userService_.update_password(password, restaurant_id)
+        return response
