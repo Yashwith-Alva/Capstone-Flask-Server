@@ -2,7 +2,7 @@
 Prints error from mysql in readable form
 '''
 from flask import jsonify
-from app.logger import logger
+from app.utils.logger import logger
 
 def logSqlError(err):
     logger.error(f"Error code: {err.errno}")        # error number
