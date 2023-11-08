@@ -6,10 +6,12 @@ from flask import jsonify, make_response
 from mysql.connector.errors import Error
 from app.main.models.restaurant import Restaurant
 from app.main.sqlErrorHandler import logSqlError
+from app.utils.responseHandler import makeResponse
 
 class RestaurantService:
     def __init__(self, db_connection):
         self.db_connection = db_connection
+
 
     # Create a new Restaurant
     def create_restaurant(self, restaurant_name, about, qr, address, location_link):
@@ -21,21 +23,14 @@ class RestaurantService:
             self.db_connection.commit()
             restaurant_id = cursor.lastrowid
             cursor.close()
-            return jsonify({
-                "status" : "success",
-                "message" : "Created restaurant successfully",
-                "data" : restaurant_id
-            }), 201
+            return makeResponse.created("Created restaurant successfully", restaurant_id)
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "error",
-                "message": mssg,
-            }), 400
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
+        
         
     # Fetch all restaurants from the table
-    #TODO : restaurants_list = [{'rid':row.rid, 'resName': row.resName, 'about': row.about, 'qr': row.qr, 'address':row.address, 'locationLink': row.locationLink} for row in restaurants]
     def get_all_restaurants(self):
         try:
             cursor = self.db_connection.cursor(dictionary=True)
@@ -47,19 +42,12 @@ class RestaurantService:
                 restaurants.append(restaurant)
             cursor.close()
             restaurants_list = [{'rid':row.rid, 'resName': row.resName, 'about': row.about, 'qr': row.qr, 'address':row.address, 'locationLink': row.locationLink} for row in restaurants]
-            
-            return jsonify({
-                "status" : "success",
-                "data" : restaurants_list
-            }), 200
-
+            return makeResponse.response_ok(restaurants_list)
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "error",
-                "message" : mssg
-            }), 400
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
+        
             
     # Fetch restaurant by Id
     def get_restaurant_by_id(self, restaurant_id):
@@ -71,24 +59,15 @@ class RestaurantService:
             restaurant = cursor.fetchone()
             cursor.close()
             if restaurant:
-                return jsonify({
-                    "status" : "success", 
-                    "data" : restaurant
-                }), 200
+                return makeResponse.response_ok(restaurant)
             else:
-                return jsonify({
-                    "status" : "success",
-                    "message" : "Data not found",
-                    "data" : None
-                }), 404
+                return makeResponse.data_not_found("Data not found")
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "success",
-                "message" : mssg
-            }), 400
-            
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
+        
+        
     # Fetch restaurant information by QR code
     def get_restaurant_by_qr(self, qr):
         try:
@@ -99,23 +78,14 @@ class RestaurantService:
             restaurant = cursor.fetchone()
             cursor.close()
             if restaurant:
-                return jsonify({
-                    "status" : "success", 
-                    "data" : restaurant
-                }), 200
+                return makeResponse.response_ok(restaurant)
             else:
-                return jsonify({
-                    "status" : "success",
-                    "message" : "Data not found",
-                    "data" : None
-                }), 404
+                return makeResponse.data_not_found("Data not Found")
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "success",
-                "message" : mssg
-            }), 400    
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc) 
+        
         
     # Delete restaurant
     def delete_restaurant(self, restaurant_id):
@@ -126,15 +96,8 @@ class RestaurantService:
             cursor.execute(delete_query, value)
             cursor.commit()
             cursor.close()
-            return jsonify({
-                "status" : "success",
-                "message" : "Deleted a restaurant",
-                "data" : restaurant_id
-            })
+            return makeResponse.no_content(restaurant_id)
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "success",
-                "message" : mssg
-            }), 400   
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)

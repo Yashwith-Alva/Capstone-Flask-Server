@@ -8,6 +8,7 @@ from mysql.connector.errors import Error
 from flask import jsonify
 from app.main.models.user import User
 from app.main.sqlErrorHandler import logSqlError
+from app.utils.responseHandler import makeResponse
 
 class UserService:
     def __init__(self, db_connection):
@@ -22,18 +23,12 @@ class UserService:
             cursor.execute(insert_query, data)
             self.db_connection.commit()
             cursor.close()
-            return jsonify({
-                "status" : "success",
-                "message" : "Created User successfully",
-                "data" : user_id
-            }), 201
+            return makeResponse.created("Created User successfully", user_id)
+        
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "error",
-                "message" : mssg
-            }), 400
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
         
     # Update password using restaurant id
     def update_password(self, password, restaurant_id):
@@ -42,51 +37,43 @@ class UserService:
             select_query = "SELECT * FROM users WHERE rid = %s"
             cursor.execute(select_query, (restaurant_id,))
             row = cursor.fetchone()
-            
             if not row:
-                return jsonify({
-                    "status" : "error",
-                    "message" : "No restaurant exist with that id"
-                }), 400
+                return makeResponse.data_not_found("No restaurant exist with that id")
             
             update_query = "UPDATE users SET usrpassword = %s WHERE rid = %s"
             values = (password, restaurant_id,)
             cursor.execute(update_query, values)
             self.db_connection.commit()
             cursor.close()
-            return jsonify({
-                "status" : "success",
-                "message" : "Successfully updated password",
-                "data" : restaurant_id
-            })
+            updates = {"usrpassword" : password}
+            return makeResponse.response_ok(updates)
+            
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "error",
-                "message" : mssg
-            })
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
               
               
     # Update user_id using restaurant_id
     def update_userId(self, user_id, restaurant_id):
         try:
             cursor = self.db_connection.cursor()
+            select_query = "SELECT * FROM users WHERE rid = %s"
+            cursor.execute(select_query, (restaurant_id,))
+            row = cursor.fetchone()
+            if not row:
+                return makeResponse.data_not_found("No restaurant exist with that id")
+            
             update_query = "UPDATE users SET usrId = %s WHERE rid = %s"
             values = (user_id, restaurant_id,)
             cursor.execute(update_query, values)
             self.db_connection.commit()
             cursor.close()
-            return jsonify({
-                "status" : "success",
-                "message" : "Successfully updated user id",
-                "data" : restaurant_id
-            })
+            updates = {"usrId" : user_id}
+            return makeResponse.response_ok(updates)
+        
         except Error as err:
             logSqlError(err)
-            mssg = {"errno" : err.errno, "errmsg" : err.msg}
-            return jsonify({
-                "status" : "error",
-                "message" : mssg
-            })
+            desc = {"errno" : err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database Error", desc)
 
