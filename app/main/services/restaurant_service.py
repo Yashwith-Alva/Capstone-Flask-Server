@@ -6,7 +6,6 @@ from flask import jsonify, make_response
 from mysql.connector.errors import Error
 from app.main.models.restaurant import Restaurant
 from app.main.sqlErrorHandler import logSqlError
-from app.logErrrors import clog
 
 class RestaurantService:
     def __init__(self, db_connection):
