@@ -17,7 +17,7 @@ capstone\Scripts\activate
 
 * The flask app by default will be launched in PORT 5000 on the localhost.
 * The flask app is set to run at `development` configuration.
-* To change the build configuration, go to run.py and change it to following
+* To change the build configuration, go to `run.py` and change it to following
     * For `development`: {Runs in debug mode}
     ```
     os.environ['FLASK_ENV'] = 'development'
