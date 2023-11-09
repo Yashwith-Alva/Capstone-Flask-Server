@@ -1,0 +1,321 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Capstone project",
+    "dateExported": "2023-11-09T18:19:16.444Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "restaurant",
+            "containerId": "",
+            "created": "2023-11-08T08:23:04.394Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "e745a5ef-042d-45ab-9de2-66b012942490",
+            "name": "Users",
+            "containerId": "",
+            "created": "2023-11-08T08:29:27.326Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "07fec36b-c089-4379-ae27-20449006a73b",
+            "name": "Updates",
+            "containerId": "",
+            "created": "2023-11-08T09:00:00.864Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "user",
+            "containerId": "07fec36b-c089-4379-ae27-20449006a73b",
+            "created": "2023-11-08T09:00:05.820Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "34ebd736-7945-4406-8c76-87b4d2c49083",
+            "name": "restaurant",
+            "containerId": "07fec36b-c089-4379-ae27-20449006a73b",
+            "created": "2023-11-08T09:00:15.242Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "f45e1b64-b177-4110-87a0-618e9f29183a",
+            "name": "Menu Item",
+            "containerId": "",
+            "created": "2023-11-09T11:45:09.595Z",
+            "sortNum": 60000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "57bbad0c-1ccc-4534-927e-4e3d5b76e4f3",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "e745a5ef-042d-45ab-9de2-66b012942490",
+            "name": "Register User [Good]",
+            "url": "http://127.0.0.1:5000/user/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-11-07T20:57:58.989Z",
+            "modified": "2023-11-08T19:15:16.568Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usrId\": \"test_5\",\n  \"usrpassword\": \"test5\",\n  \"rid\": \"9\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fa584670-4f82-47cf-a36e-a1b2b2ccc950",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Register Restaurant",
+            "url": "http://127.0.0.1:5000/restaurant/register",
+            "method": "POST",
+            "sortNum": 22500,
+            "created": "2023-11-07T20:58:06.152Z",
+            "modified": "2023-11-09T17:55:16.364Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"resName\": \"ABC\",\n    \"about\": \"ABC restaurant\",\n    \"qr\": \"ABC2023\",\n    \"address\": \"Electronic City\",\n    \"locationLink\": \"https://ABC.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "63a5057b-2236-4b07-9abc-b6e2ff1b9e26",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Get all Restaurants",
+            "url": "http://127.0.0.1:5000/restaurant",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-11-08T08:23:19.851Z",
+            "modified": "2023-11-08T08:23:55.118Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "05673128-dca6-4d01-8240-2306dd992330",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Get restaurant by ID [Exist]",
+            "url": "http://127.0.0.1:5000/restaurant/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-11-08T08:26:32.689Z",
+            "modified": "2023-11-08T08:26:44.641Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "00ce3303-961f-458e-86f4-993aadcddd5a",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Get Restaurant by Id [Doesn't Exist]",
+            "url": "http://127.0.0.1:5000/restaurant/999",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-11-08T08:27:14.965Z",
+            "modified": "2023-11-08T08:27:20.559Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "78f077ce-ad6e-42e0-96a7-fd5d65f89e02",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Get Restaurant By QR [Exist]",
+            "url": "http://127.0.0.1:5000/restaurant/qrcode/abc123",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-11-08T08:27:43.506Z",
+            "modified": "2023-11-08T08:29:10.870Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f56f897e-c845-46ef-8e86-21235eb9ebda",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "03853ab0-27d6-4f37-8224-3b517d01482c",
+            "name": "Get Restaurant by QR [ Doesn't Exist]",
+            "url": "http://127.0.0.1:5000/restaurant/qrcode/hello",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-11-08T08:28:15.847Z",
+            "modified": "2023-11-08T08:29:12.758Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e37212f3-952f-4713-8ada-612a966ab4b3",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "Update user id",
+            "url": "http://127.0.0.1:5000/update/user/userid",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-11-08T09:00:26.359Z",
+            "modified": "2023-11-08T09:05:14.491Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rid\" : 2,\n  \"usrId\" : \"yashwith\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "99203ee1-a024-4458-a2bf-77aacbc5aeab",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "Update user password",
+            "url": "http://127.0.0.1:5000/update/user/password",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-11-08T09:00:34.891Z",
+            "modified": "2023-11-08T09:06:16.285Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rid\" : 2,\n  \"usrpassword\" : \"yas@123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f86d9cad-a0ee-44c7-96d8-63063304032e",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "Update user without restaurant",
+            "url": "http://127.0.0.1:5000/update/user/userid",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-11-08T09:00:56.006Z",
+            "modified": "2023-11-08T09:09:45.940Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usrId\" : \"yashwith\",\n  \"rid\" : null\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f6d8effd-c039-4612-80c4-61cd0a164755",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "Update non-existent",
+            "url": "http://127.0.0.1:5000/update/user/password",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2023-11-08T09:01:20.081Z",
+            "modified": "2023-11-08T09:10:22.152Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rid\" : 10,\n  \"usrpassword\" : \"sine\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5a676ed9-6d84-4f3d-a758-5b2a17e80ab5",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "7422b7ee-7f20-4571-8344-d9947c6ed430",
+            "name": "Update with long data",
+            "url": "http://127.0.0.1:5000/update/user/password",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2023-11-08T09:07:30.937Z",
+            "modified": "2023-11-08T09:08:04.296Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rid\" : 2,\n  \"usrpassword\" : \"yashwith@2002\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "02413981-25ff-4d90-9ce1-d13954d26ce0",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "e745a5ef-042d-45ab-9de2-66b012942490",
+            "name": "Register user with no restaurant",
+            "url": "http://127.0.0.1:5000/user/register",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2023-11-08T09:17:40.238Z",
+            "modified": "2023-11-08T09:18:09.760Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usrId\": \"test-fail\",\n  \"usrpassword\": \"fail\",\n  \"rid\": \"99\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "81442cf8-5993-4715-838d-36d61c01ae66",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "f45e1b64-b177-4110-87a0-618e9f29183a",
+            "name": "Create Menu Item [Working]",
+            "url": "http://127.0.0.1:5000/restaurant/menu/add",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2023-11-09T11:46:41.110Z",
+            "modified": "2023-11-09T11:51:30.956Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"itemName\" : \"Dosa\",\n  \"rid\" : 10\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9ab4465c-fcf8-4698-88fe-6685be1a5bd4",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "f45e1b64-b177-4110-87a0-618e9f29183a",
+            "name": "Get MenuItems by Restaurant Id",
+            "url": "http://127.0.0.1:5000/restaurant/menu/10",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-11-09T11:47:05.038Z",
+            "modified": "2023-11-09T11:56:01.150Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5d03d01b-7ac1-482b-974c-25ae56fbff91",
+            "colId": "fe36002a-44c0-4ee0-9072-8e9fdc1e62ac",
+            "containerId": "f45e1b64-b177-4110-87a0-618e9f29183a",
+            "name": "Get all menu Items [Working]",
+            "url": "http://127.0.0.1:5000/restaurant/menu",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-11-09T11:47:11.519Z",
+            "modified": "2023-11-09T11:47:49.144Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

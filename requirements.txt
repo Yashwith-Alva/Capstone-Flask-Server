@@ -1,3 +1,4 @@
 pip install flask
 pip install mysql-connector-python
 pip install colorama
+pip install virtualenv
