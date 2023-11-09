@@ -1,3 +1,5 @@
+# INSTALL INSTRUCTIONS
+
 * Install all the required packages for the project
 ```
 pip install -r requirements.txt
