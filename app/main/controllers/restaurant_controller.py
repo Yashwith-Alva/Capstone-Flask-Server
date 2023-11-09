@@ -27,7 +27,7 @@ class RestaurantController:
     def get_all_restaurants(self):
         response = self.restaurantService_.get_all_restaurants()
         return response
-    
+        
     # Return restaurant by id
     def get_restaurant_by_id(self, id):
         response = self.restaurantService_.get_restaurant_by_id(id)

@@ -11,8 +11,7 @@ from . import main_blueprint
 from flask import jsonify, request
 from app.mysql_db import get_sqldb
 from app.utils.responseHandler import makeResponse
-from app.main.controllers import restaurant_controller
-from app.main.controllers import user_controller
+from app.main.controllers import restaurant_controller, user_controller, menuItem_controller
 
 ############################################################################################
 # RESTAURANT METHODS
@@ -108,6 +107,36 @@ def update_password():
 # MENU METHODS
 ############################################################################################
 # [POST] Create a menu Item
+@main_blueprint.route("/restaurant/menu/add", methods=['POST'])
+def create_menu_item():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        response = menuItem_controller.MenuItemController(db_conn).add_menuItem(request)
+        return response
+    else:
+        return makeResponse.db_conn_error()
+
+# [GET] Fetch all items
+@main_blueprint.route("/restaurant/menu/", methods=['GET'])
+def fetchAll_menu_items():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        response = menuItem_controller.MenuItemController(db_conn).get_all_menuItems()
+        return response
+    else:
+        return makeResponse.db_conn_error()
+
+# [GET] Fetch particular menu by restaurant id
+@main_blueprint.route("/restaurant/menu/<int:restaurant_id>", methods=['GET'])
+def fetch_restaurant_menu(restaurant_id):
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        menuItemController_ = menuItem_controller.MenuItemController(db_conn)
+        response = menuItemController_.get_restaurant_menu(restaurant_id)
+        return response
+    else:
+        return makeResponse.db_conn_error()
+
 
 ############################################################################################
 # MENU ITEMS METHODS

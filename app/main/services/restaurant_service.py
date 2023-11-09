@@ -2,7 +2,6 @@
 This module provides services that interact with restaurant table
 => Restaurant Id is auto generated, hence not part of the computation
 """
-from flask import jsonify, make_response
 from mysql.connector.errors import Error
 from app.main.models.restaurant import Restaurant
 from app.main.sqlErrorHandler import logSqlError
