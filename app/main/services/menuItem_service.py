@@ -20,8 +20,8 @@ class MenuItemService:
         try:
             cursor = self.db_connection.cursor()
             # Check if an item with similar name exist.
-            select_query = "SELECT * FROM menu_items WHERE itemName = %s"
-            data = (item_name,)
+            select_query = "SELECT * FROM menu_items WHERE itemName = %s AND rid = %s"
+            data = (item_name, rid,)
             cursor.execute(select_query, data)
             row = cursor.fetchone()
             if row:
