@@ -1,6 +1,5 @@
 from flask import jsonify
 from app.main.services.menuItem_service import MenuItemService, makeResponse
-from app.utils.logger import logger
 
 class MenuItemController:
     def __init__(self, db_connection):
@@ -11,7 +10,6 @@ class MenuItemController:
         data = request.get_json()
         item_name = data.get('itemName')
         category = data.get('category')
-        nutritionId = data.get('nutritionId')
         ingredient_info = data.get('ingredient_info')
         verified = data.get('verified')
         rid = data.get('rid')
@@ -22,7 +20,7 @@ class MenuItemController:
         elif not rid:
             return makeResponse.bad_request("Server Error", "Restaurant Id is required")
         
-        return self.menuItemService_.add_item(item_name, category, nutritionId, ingredient_info, rid)
+        return self.menuItemService_.add_item(item_name, category, ingredient_info, rid)
     
     # Get all items
     def get_all_menuItems(self):
@@ -32,6 +30,18 @@ class MenuItemController:
     def get_restaurant_menu(self, resaturant_id):
         return self.menuItemService_.get_restaurant_menu(resaturant_id)
         
+    # Update menu_item of a using item_id
+    def update_menuItem_by_id(self, request):
+        data = request.get_json()
+        item_id = data.get('itemId')
+        item_name = data.get('itemName')
+        category = data.get('category')
+        ingredient_info = data.get('ingredient_info')
+        
+        if not item_id:
+            return makeResponse.bad_request("Server Error", "Item id is required")
             
+        return self.menuItemService_.update_menu_item(item_id, item_name, category, ingredient_info)
+           
         
         

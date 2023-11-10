@@ -38,3 +38,6 @@ class RestaurantController:
         response = self.restaurantService_.get_restaurant_by_qr(qr)
         return response
         
+    # TODO : Update restaurant table values
+    def update_restaurant_by_id(self, id):
+        pass 

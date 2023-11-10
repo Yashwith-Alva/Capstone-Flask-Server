@@ -11,7 +11,40 @@ from . import main_blueprint
 from flask import jsonify, request
 from app.mysql_db import get_sqldb
 from app.utils.responseHandler import makeResponse
-from app.main.controllers import restaurant_controller, user_controller, menuItem_controller
+from app.main.controllers import restaurant_controller, user_controller, menuItem_controller, nutrition_controller
+
+
+''''
+All Useful Routes:
+
+1. For RESTAURANT related:
+    "/restaurant" : GET method will give all items
+                  : POST method will create an item
+
+    "/restaurant/<int:item_id>"          : GET method will fetch restaurant of that id.
+    "/restaurant/qrcode/<string:qrcode>" : GET method will fetch restaurant with that qr code.
+    
+2. For USER related:
+    "/user/register"        : POST method will create a new register
+    "/update/user/userid"   : POST method will update userId using password and rid.
+    "/update/user/password" : POST method will update password using userId and rid.
+
+3. For MENU_ITEM related:
+    "/restaurant/menu"      : GET method will get all the menu items irrespective of restaurant
+                            : POST method will create a new menu item
+    
+    "/restaurant/menu/<int:rid>           : GET method will fetch menu_items of particular restaurant
+    "/update/restaurant/menu/<int:item_id : POST method will update a menu_item of particular item_id
+
+4. For NUTRITION related:
+    "/restaurant/menu/nutrition" : GET method will fetch all the nutrition items
+                                 : POST method will create a new nutrition item
+                                 
+    "/restaurant/menu/nutrition/<int:item_id> : GET method will fetch nutrition of that particular item
+    "/update/restaurant/menu/nutrition        : POST method will update the particular nutrition
+'''
+
+
 
 ############################################################################################
 # RESTAURANT METHODS
@@ -54,7 +87,7 @@ def get_restaurant_by_qr(qr):
         
         
 # [POST] Create a new Restaurant
-@main_blueprint.route('/restaurant/register', methods=['POST'])
+@main_blueprint.route('/restaurant', methods=['POST'])
 def create_restaurant():
     db_conn = get_sqldb()
     if db_conn is not None:
@@ -103,11 +136,14 @@ def update_password():
     else:
         return makeResponse.db_conn_error()
 
+
+
 ############################################################################################
-# MENU METHODS
+# MENU Item METHODS
 ############################################################################################
+
 # [POST] Create a menu Item
-@main_blueprint.route("/restaurant/menu/add", methods=['POST'])
+@main_blueprint.route("/restaurant/menu/", methods=['POST'])
 def create_menu_item():
     db_conn = get_sqldb()
     if db_conn is not None:
@@ -137,10 +173,16 @@ def fetch_restaurant_menu(restaurant_id):
     else:
         return makeResponse.db_conn_error()
 
-
-############################################################################################
-# MENU ITEMS METHODS
-############################################################################################
+# [POST] Update menu_item by item_id
+@main_blueprint.route("/restaurant/menu/update", methods=['POST'])
+def update_menu_item():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        menuItemController_ = menuItem_controller.MenuItemController(db_conn)
+        response = menuItemController_.update_menuItem_by_id(request)
+        return response
+    else:
+        return makeResponse.db_conn_error()
 
 
 
@@ -148,4 +190,46 @@ def fetch_restaurant_menu(restaurant_id):
 # NUTRITION METHODS
 ############################################################################################
 
+# [POST] Create new nutrition
+@main_blueprint.route("restaurant/menu/nutrition", methods = ['POST'])
+def create_nutrition():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        nutrtionController_ = nutrition_controller.NutritionController(db_conn)
+        response = nutrtionController_.create_new_nutrition(request)
+        return response
+    else:
+        return makeResponse.db_conn_error()
+    
+# [GET] Fetch all nutritions
+@main_blueprint.route("restaurant/menu/nutrition", methods = ['GET'])
+def fetchall_nutritions():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        nutrtionController_ = nutrition_controller.NutritionController(db_conn)
+        response = nutrtionController_.get_all_nutritions()
+        return response
+    else:
+        return makeResponse.db_conn_error()
 
+# [GET] Fetch nutrition based on item_id
+@main_blueprint.route("/restaurant/menu/nutrition/<int:item_id>", methods=['GET'])
+def fetch_nutrition_by_itemId(item_id):
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        nutrtionController_ = nutrition_controller.NutritionController(db_conn)
+        response = nutrtionController_.get_nutrition_by_itemId(item_id)
+        return response
+    else:
+        return makeResponse.db_conn_error()
+
+# [POST] Update the nutrition of the particular item_id
+@main_blueprint.route("/restaurant/menu/nutrition/update", methods = ['POST'])
+def update_nutrition_by_itemId():
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        nutrtionController_ = nutrition_controller.NutritionController(db_conn)
+        response = nutrtionController_.update_nutrtion_by_id(request)
+        return response
+    else:
+        return makeResponse.db_conn_error()

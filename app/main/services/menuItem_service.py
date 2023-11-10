@@ -15,7 +15,7 @@ class MenuItemService:
         self.db_connection = db_connection
     
     # Add menu item        
-    def add_item(self, item_name, category, nutritionId, ingredient_info, rid):
+    def add_item(self, item_name, category, ingredient_info, rid):
         try:
             cursor = self.db_connection.cursor()
             # Check if an item with similar name exist.
@@ -26,8 +26,8 @@ class MenuItemService:
             if row:
                 return makeResponse.bad_request("Server Error", "Item already exist")
         
-            create_query = "INSERT INTO menu_items (itemName, category, nutritionId, ingredient_info, rid) VALUES (%s, %s, %s, %s, %s)"
-            data = (item_name, category, nutritionId, ingredient_info, rid,)
+            create_query = "INSERT INTO menu_items (itemName, category, ingredient_info, rid) VALUES (%s, %s, %s, %s)"
+            data = (item_name, category, ingredient_info, rid,)
             cursor.execute(create_query, data)
             self.db_connection.commit()
             item_id = cursor.lastrowid
@@ -44,12 +44,16 @@ class MenuItemService:
             cursor = self.db_connection.cursor(dictionary=True)
             select_query = "SELECT * FROM menu_items"
             cursor.execute(select_query)
+            results = cursor.fetchall()
+            self.db_connection.commit()
+            if not results:
+                return makeResponse.data_not_found("No data found")
             menuItems = []
-            for row in cursor.fetchall(): 
-                menuItem = MenuItem(row['itemId'], row['itemName'], row['category'], row['nutritionId'] ,row['ingredient_info'], row['verified'], row['rid'], row['item_uri'])
+            for row in results: 
+                menuItem = MenuItem(row['itemId'], row['itemName'], row['category'], row['ingredient_info'], row['verified'], row['rid'], row['item_uri'])
                 menuItems.append(menuItem)
             cursor.close()
-            menuItems_list = [{'itemId': row.item_id, 'itemName' : row.item_name, 'category' : row.category, 'nutritionId' : row.nutrition_id, 'ingredient_info': row.ingredient_info, 'verified' : row.verified, 'rid' : row.restaurant_id, 'item_uri' : row.item_uri } for row in menuItems]
+            menuItems_list = [{'itemId': row.item_id, 'itemName' : row.item_name, 'category' : row.category, 'ingredient_info': row.ingredient_info, 'verified' : row.verified, 'rid' : row.restaurant_id, 'item_uri' : row.item_uri } for row in menuItems]
             return makeResponse.response_ok(menuItems_list)
         except Error as err:
             logSqlError(err)
@@ -66,14 +70,14 @@ class MenuItemService:
             
             # Check if any items with that restaurant id exist.
             if not items:
-                return makeResponse.bad_request("Server Error", "No such restaurant/menu Item exist")
+                return makeResponse.data_not_found("No data exist for this restaurant")
             
             menuItems = []
             for row in items:
-                menuItem = MenuItem(row['itemId'], row['itemName'], row['category'], row['nutritionId'] ,row['ingredient_info'], row['verified'], row['rid'], row['item_uri'])
+                menuItem = MenuItem(row['itemId'], row['itemName'], row['category'], row['ingredient_info'], row['verified'], row['rid'], row['item_uri'])
                 menuItems.append(menuItem)
             cursor.close()
-            menuItems_list = [{'itemId': row.item_id, 'itemName' : row.item_name, 'category' : row.category, 'nutritionId' : row.nutrition_id, 'ingredient_info': row.ingredient_info, 'verified' : row.verified, 'rid' : row.restaurant_id, 'item_uri' : row.item_uri } for row in menuItems]
+            menuItems_list = [{'itemId': row.item_id, 'itemName' : row.item_name, 'category' : row.category, 'ingredient_info': row.ingredient_info, 'verified' : row.verified, 'rid' : row.restaurant_id, 'item_uri' : row.item_uri } for row in menuItems]
             return makeResponse.response_ok(menuItems_list)
         except Error as err:
             logSqlError(err)
@@ -81,9 +85,21 @@ class MenuItemService:
             return makeResponse.bad_request("Database error", desc)
         
     # Update Menu Item info
-    def update_menu_item(self, item_name, category, nutritionId, ingredient_info, rid):
+    def update_menu_item(self, item_id, item_name, category, ingredient_info):
         try:
-            pass
+            cursor = self.db_connection.cursor()
+            select_query = "SELECT * FROM menu_items WHERE itemId = %s"
+            cursor.execute(select_query, (item_id,))
+            row = cursor.fetchone()
+            if not row:
+                return makeResponse.bad_request("Server error", "No such item exist")
+                
+            update_query = "UPDATE menu_items SET (itemName, category, ingredient_info) VALUES(%s, %s, %s) WHERE itemId = %s"
+            data = (item_name, category, ingredient_info, item_id)
+            cursor.execute(update_query, data)
+            self.db_connection.commit()
+            cursor.close()
+            return makeResponse.response_ok(item_id)
         except Error as err:
             logSqlError(err)
             desc = {"errno": err.errno, "errmsg" : err.msg}

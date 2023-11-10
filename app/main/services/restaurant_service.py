@@ -11,7 +11,6 @@ class RestaurantService:
     def __init__(self, db_connection):
         self.db_connection = db_connection
 
-
     # Create a new Restaurant
     def create_restaurant(self, restaurant_name, about, qr, address, location_link):
         try:
@@ -27,7 +26,6 @@ class RestaurantService:
             logSqlError(err)
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc)
-        
         
     # Fetch all restaurants from the table
     def get_all_restaurants(self):
@@ -47,7 +45,6 @@ class RestaurantService:
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc)
         
-            
     # Fetch restaurant by Id
     def get_restaurant_by_id(self, restaurant_id):
         try:
@@ -66,7 +63,6 @@ class RestaurantService:
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc)
         
-        
     # Fetch restaurant information by QR code
     def get_restaurant_by_qr(self, qr):
         try:
@@ -84,7 +80,6 @@ class RestaurantService:
             logSqlError(err)
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc) 
-        
         
     # Delete restaurant
     def delete_restaurant(self, restaurant_id):

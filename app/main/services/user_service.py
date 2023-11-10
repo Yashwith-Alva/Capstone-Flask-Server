@@ -53,7 +53,6 @@ class UserService:
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc)
               
-              
     # Update user_id using restaurant_id
     def update_userId(self, user_id, restaurant_id):
         try:
