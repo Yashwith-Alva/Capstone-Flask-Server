@@ -1,5 +1,6 @@
 from flask import jsonify
 from app.main.services.menuItem_service import MenuItemService, makeResponse
+from app.utils.logger import logger
 
 class MenuItemController:
     def __init__(self, db_connection):

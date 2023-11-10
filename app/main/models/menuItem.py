@@ -1,9 +1,9 @@
 from enum import Enum
 
 class ItemState(Enum):
-    VERIFIED = 1
-    INPROGRESS = 2
-    REJECTED = 3    
+    VERIFIED = 'verified'
+    INPROGRESS = 'inprogress'
+    REJECTED = 'rejected'
 
 class MenuItem:
     def __init__(self, item_id, item_name, category, nutrition_id, ingredient_info, restaurant_id, verified = ItemState.VERIFIED, item_uri = None):
