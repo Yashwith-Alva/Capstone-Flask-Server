@@ -85,17 +85,17 @@ class MenuItemService:
             return makeResponse.bad_request("Database error", desc)
         
     # Update Menu Item info
-    def update_menu_item(self, item_id, item_name, category, ingredient_info):
+    def update_menu_item(self, item_id, item_name, category, ingredient_info, rid):
         try:
             cursor = self.db_connection.cursor()
-            select_query = "SELECT * FROM menu_items WHERE itemId = %s"
-            cursor.execute(select_query, (item_id,))
+            select_query = "SELECT * FROM menu_items WHERE itemId = %s AND rid = %s"
+            cursor.execute(select_query, (item_id, rid))
             row = cursor.fetchone()
             if not row:
                 return makeResponse.bad_request("Server error", "No such item exist")
                 
-            update_query = "UPDATE menu_items SET (itemName, category, ingredient_info) VALUES(%s, %s, %s) WHERE itemId = %s"
-            data = (item_name, category, ingredient_info, item_id)
+            update_query = "UPDATE menu_items SET (itemName, category, ingredient_info) VALUES(%s, %s, %s) WHERE itemId = %s AND rid = %s"
+            data = (item_name, category, ingredient_info, item_id, rid)
             cursor.execute(update_query, data)
             self.db_connection.commit()
             cursor.close()
