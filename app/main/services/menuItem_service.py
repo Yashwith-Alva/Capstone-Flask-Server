@@ -42,7 +42,7 @@ class MenuItemService:
     # Get all menu items
     def get_all_items(self):
         try:
-            cursor = self.db_connection.cursor()
+            cursor = self.db_connection.cursor(dictionary=True)
             select_query = "SELECT * FROM menu_items"
             cursor.execute(select_query)
             menuItems = []
@@ -60,12 +60,17 @@ class MenuItemService:
     # Get all items of a restaurant using rid
     def get_restaurant_menu(self, rid):
         try:
-            cursor = self.db_connection.cursor()
+            cursor = self.db_connection.cursor(dictionary=True)        
             select_query = "SELECT * FROM menu_items WHERE rid = %s"
             cursor.execute(select_query, (rid,))
+            items = cursor.fetchall()
+            
+            # Check if any items with that restaurant id exist.
+            if not items:
+                return makeResponse.bad_request("Server Error", "No such restaurant/menu Item exist")
+            
             menuItems = []
-            for row in cursor.fetchall():
-                logger.error(row)
+            for row in items:
                 menuItem = MenuItem(row['itemId'], row['itemName'], row['category'], row['nutritionId'] ,row['ingredient_info'], row['verified'], row['rid'], row['item_uri'])
                 menuItems.append(menuItem)
             cursor.close()
@@ -75,3 +80,5 @@ class MenuItemService:
             logSqlError(err)
             desc = {"errno": err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database error", desc)
+        
+    # Update Menu Item info
