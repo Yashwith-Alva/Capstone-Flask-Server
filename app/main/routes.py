@@ -45,7 +45,6 @@ All Useful Routes:
 '''
 
 
-
 ############################################################################################
 # RESTAURANT METHODS
 ############################################################################################
@@ -60,9 +59,7 @@ def restaurant_methods():
     else:
         return makeResponse.db_conn_error()
     
-    
 # [GET] Restaurant with Unique Id
-# [POST] Update restaurant information with Id
 @main_blueprint.route('/restaurant/<int:restaurant_id>', methods = ['GET'])
 def restaurant_by_id(restaurant_id):
     db_conn = get_sqldb()
@@ -97,7 +94,7 @@ def create_restaurant():
     else:
         return makeResponse.db_conn_error()
 
-
+# TODO: Update restaurant information
 
 ############################################################################################
 # USER METHODS
@@ -137,6 +134,10 @@ def update_password():
         return makeResponse.db_conn_error()
 
 
+# [GET]: TODO: Implement get rid by userId and password.
+@main_blueprint.route('/user/restaurant', methods = ['POST'])
+def get_restaurant_id():
+    pass
 
 ############################################################################################
 # MENU Item METHODS

@@ -16,7 +16,7 @@ class NutritionController:
         fat = data.get('fat')
         foodType = data.get('foodType')
         
-        if not item_id or foodType:
+        if not item_id or not foodType:
             makeResponse.bad_request("Server Error", "Item id and foodType are must")
             
         return self.nutritionService_.create_nutrition(item_id, energy, protein, carbohydrate, fat, foodType)
