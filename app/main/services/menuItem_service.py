@@ -9,7 +9,6 @@ from mysql.connector.errors import Error
 from app.main.models.menuItem import MenuItem, ItemState
 from app.main.sqlErrorHandler import logSqlError
 from app.utils.responseHandler import makeResponse
-from app.utils.logger import logger
 
 class MenuItemService:
     def __init__(self, db_connection):
@@ -82,3 +81,10 @@ class MenuItemService:
             return makeResponse.bad_request("Database error", desc)
         
     # Update Menu Item info
+    def update_menu_item(self, item_name, category, nutritionId, ingredient_info, rid):
+        try:
+            pass
+        except Error as err:
+            logSqlError(err)
+            desc = {"errno": err.errno, "errmsg" : err.msg}
+            return makeResponse.bad_request("Database error", desc)
