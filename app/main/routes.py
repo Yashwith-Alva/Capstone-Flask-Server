@@ -33,8 +33,8 @@ All Useful Routes:
     "/restaurant/menu"      : GET method will get all the menu items irrespective of restaurant
                             : POST method will create a new menu item
     
-    "/restaurant/menu/<int:rid>            : GET method will fetch menu_items of particular restaurant
-    "/update/restaurant/menu/<int:item_id> : POST method will update a menu_item of particular item_id
+    "/restaurant/menu/<int:rid>  : GET method will fetch menu_items of particular restaurant
+    "/update/restaurant/menu     : POST method will update a menu_item of particular item_id
 
 4. For NUTRITION related:
     "/restaurant/menu/nutrition" : GET method will fetch all the nutrition items

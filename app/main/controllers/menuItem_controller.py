@@ -37,11 +37,12 @@ class MenuItemController:
         item_name = data.get('itemName')
         category = data.get('category')
         ingredient_info = data.get('ingredient_info')
+        rid = data.get('rid')
         
-        if not item_id:
-            return makeResponse.bad_request("Server Error", "Item id is required")
+        if not item_id or not rid:
+            return makeResponse.bad_request("Server Error", "Item id and rid is required")
             
-        return self.menuItemService_.update_menu_item(item_id, item_name, category, ingredient_info)
+        return self.menuItemService_.update_menu_item(item_id, item_name, category, ingredient_info, rid)
            
         
         
