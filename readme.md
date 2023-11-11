@@ -1,7 +1,10 @@
 # Capstone Flask Server
 
-### Remember to make the environment variable to production while deploying
-### No Auth, Yet to implement
+> [!WARNING]
+> Remember to make the environment variable to production while deploying
+
+> [!IMPORTANT]
+> No Auth, Yet to implement
 
 # Deployment Configuration
 In this flask application `app/config.py` file defines three different deployment configuration.
@@ -31,7 +34,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
 
 1. [GET] Fetch all restaurants `/restaurant`
 2. [POST] Create restaurant `/restaurant` \
-    *JSON FORMAT for creating restaurant*
+    <sub>*JSON FORMAT for creating restaurant*</sub>
     ```
     {
         "resName": "<restaurant_name>",
@@ -50,7 +53,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
 
 ## User
 1. [POST] Create an User `/user/register`\
-    *JSON format for creating user*
+    <sub>*JSON format for creating user*</sub>
     ```
     {
         "usrId": "<user_id>",
@@ -60,7 +63,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     ```
 
 2. [POST] Update the userId `/update/user/userid`\
-    *JSON format for updating userId*
+    <sub>*JSON format for updating userId*</sub>
     ```
     {
         "usrpassword" : <user_password>,
@@ -69,7 +72,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     ```
 
 3. [POST] Update the user password `/update/user/password`\
-    *JSON format for updating userId*
+    <sub>*JSON format for updating userId*</sub>
     ```
     {
         "usrId" : <user_id>,
@@ -80,7 +83,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
 ## Menu Items
 1. [GET] Get all the items in the table `/restaurant/menu`
 2. [POST] Create a new item in the table `/restaurant/menu`\
-    *JSON format for creating a new menu item. itemId, rid and itemName are must*
+    <sub>*JSON format for creating a new menu item. itemId, rid and itemName are must*</sub>
     ```
     {
     "itemName" : <item_name>,
@@ -91,7 +94,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     ```
 3. [GET] Get menu by restaurant id `/restaurant/menu/<int:restaurant_id>`
 4. [POST] Update menu item\
-    *JSON format for updating menu item. ItemId and rid are must. If any other feild not given, it will update mysql to None*
+    <sub>*JSON format for updating menu item. ItemId and rid are must. If any other feild not given, it will update mysql to None*</sub>
     ```
     {
     "itemId" : <int:item_id>,
@@ -105,7 +108,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
 ## Nutrition
 1. [GET] Fetch all the nutrition items `/restaurant/menu/nutrition`
 2. [POST] Create a new nutrition item `/restaurant/menu/nutrition`\
-    *JSON format for creating a nutrition item. foodType is case sensitive*
+    <sub>*JSON format for creating a nutrition item. foodType is case sensitive*</sub>
     ```
     {
     "itemId" : <int:item_id>,
@@ -118,7 +121,7 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     ```
 3. [GET] Fetch nutrition by itemId `/restaurant/menu/nutrition/<int:item_id>`
 4. [POST] Update nutrition by itemId `/update/restaurant/menu/nutrition `\
-    *JSON format for creating a updating nutrition values*
+    <sub>*JSON format for creating a updating nutrition values*</sub>
     ```
     {
     "itemId" : <int:itemId>,
@@ -128,3 +131,8 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
     "fat" : <int>
     }
     ```
+
+# RESOURCES
+- It includes MySQL database used in the project. It can be directly exported into the mysql workbench.
+* It also includes various testcases that was run in thunderclient.
+* You can import the JSON file directly to the thunderclient application.
