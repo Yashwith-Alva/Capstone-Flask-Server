@@ -25,19 +25,16 @@ DROP TABLE IF EXISTS `menu_items`;
 CREATE TABLE `menu_items` (
   `itemId` int NOT NULL AUTO_INCREMENT,
   `itemName` varchar(50) NOT NULL,
+  `rid` int NOT NULL,
   `category` varchar(15) DEFAULT NULL,
-  `nutritionId` int DEFAULT NULL,
   `ingredient_info` text,
   `verified` enum('verified','inprogress','rejected') NOT NULL DEFAULT 'inprogress',
-  `rid` int NOT NULL,
   `item_uri` varchar(510) DEFAULT NULL,
   PRIMARY KEY (`itemId`),
   UNIQUE KEY `item_uri_UNIQUE` (`item_uri`),
-  KEY `nutrituionId` (`nutritionId`),
   KEY `menu_items_ibfk_3_idx` (`rid`),
-  CONSTRAINT `menu_items_ibfk_2` FOREIGN KEY (`nutritionId`) REFERENCES `nutrition` (`nutrituionId`),
   CONSTRAINT `menu_items_ibfk_3` FOREIGN KEY (`rid`) REFERENCES `restaurant` (`rid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +43,7 @@ CREATE TABLE `menu_items` (
 
 LOCK TABLES `menu_items` WRITE;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
-INSERT INTO `menu_items` VALUES (3,'Dosa',NULL,NULL,NULL,'inprogress',10,NULL);
+INSERT INTO `menu_items` VALUES (3,'Idli',10,'Breakfast',NULL,'inprogress',NULL),(5,'Idli',10,NULL,NULL,'inprogress',NULL),(6,'Idli',10,'Breakfast',NULL,'inprogress',NULL),(11,'Set Dosa',10,NULL,NULL,'inprogress',NULL),(12,'Set Dosa',11,NULL,NULL,'inprogress',NULL),(14,'North Indian Meal',11,'Lunch','Roti, Curry, Rice, Salad, Dal','inprogress',NULL);
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  0:08:08
+-- Dump completed on 2023-11-11 11:57:53

@@ -23,14 +23,18 @@ DROP TABLE IF EXISTS `nutrition`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nutrition` (
-  `nutrituionId` int NOT NULL,
-  `Energy` int DEFAULT NULL,
-  `Protein` int DEFAULT NULL,
-  `Carbohydrate` int DEFAULT NULL,
-  `Fat` int DEFAULT NULL,
-  `Veg` enum('VEG','NON-VEG') DEFAULT NULL,
-  PRIMARY KEY (`nutrituionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nutrituionId` int NOT NULL AUTO_INCREMENT,
+  `itemId` int DEFAULT NULL,
+  `foodType` enum('VEG','NON-VEG') DEFAULT NULL,
+  `energy` int DEFAULT NULL,
+  `protein` int DEFAULT NULL,
+  `carbohydrate` int DEFAULT NULL,
+  `fat` int DEFAULT NULL,
+  PRIMARY KEY (`nutrituionId`),
+  UNIQUE KEY `itemId_UNIQUE` (`itemId`),
+  KEY `item_nutrition_bfk_idx` (`itemId`),
+  CONSTRAINT `item_nutrition_bfk` FOREIGN KEY (`itemId`) REFERENCES `menu_items` (`itemId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +43,7 @@ CREATE TABLE `nutrition` (
 
 LOCK TABLES `nutrition` WRITE;
 /*!40000 ALTER TABLE `nutrition` DISABLE KEYS */;
+INSERT INTO `nutrition` VALUES (6,3,'VEG',4,12,10,2),(7,6,NULL,25,100,22,1);
 /*!40000 ALTER TABLE `nutrition` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  0:08:08
+-- Dump completed on 2023-11-11 11:57:52
