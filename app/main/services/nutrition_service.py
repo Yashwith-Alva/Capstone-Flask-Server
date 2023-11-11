@@ -32,9 +32,9 @@ class NutritionService:
             
             create_query = "INSERT INTO nutrition (energy, protein, carbohydrate, fat, foodType, itemId) VALUES (%s, %s, %s, %s, %s, %s)"
             data = (energy, protein, carbohydrate, fat, foodType, item_id,)
-            cursor.execute(select_query, data)
+            cursor.execute(create_query, data)
+            nutrition_id = cursor.lastrowid
             self.db_connection.commit()
-            nutrition_id = cursor.lastrowid()
             cursor.close()
             return makeResponse.created("Created a new Nutrition", nutrition_id)    
         except Error as err:
@@ -46,7 +46,14 @@ class NutritionService:
     def update_nutrition_info(self, item_id, energy, protein, carbohydrate, fat, foodType):
         try:
             cursor = self.db_connection.cursor()
-            update_query = "UPDATE nutrition SET (energy, protein, carbohydrate, fat, foodType) VALUES(%s, %s, %s, %s, %s) WHERE itemId = %s"
+            select_query = "SELECT * FROM nutrition WHERE itemId = %s"
+            cursor.execute(select_query, (item_id,))
+            row = cursor.fetchone()
+            print(f"row: {row}")
+            if not row:
+                return makeResponse.bad_request("Server Error", "No such item exist")
+                
+            update_query = "UPDATE nutrition SET energy = %s, protein = %s, carbohydrate = %s, fat = %s, foodType = %s WHERE itemId = %s"
             data = (energy, protein, carbohydrate, fat, foodType, item_id)
             cursor.execute(update_query, data)
             self.db_connection.commit()

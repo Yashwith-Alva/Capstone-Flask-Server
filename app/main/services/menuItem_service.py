@@ -94,7 +94,7 @@ class MenuItemService:
             if not row:
                 return makeResponse.bad_request("Server error", "No such item exist")
                 
-            update_query = "UPDATE menu_items SET (itemName, category, ingredient_info) VALUES(%s, %s, %s) WHERE itemId = %s AND rid = %s"
+            update_query = "UPDATE menu_items SET itemName = %s, category = %s, ingredient_info = %s WHERE itemId = %s AND rid = %s"
             data = (item_name, category, ingredient_info, item_id, rid)
             cursor.execute(update_query, data)
             self.db_connection.commit()

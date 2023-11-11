@@ -22,7 +22,7 @@ All Useful Routes:
                   : POST method will create an item
 
     "/restaurant/<int:item_id>"          : GET method will fetch restaurant of that id.
-    "/restaurant/qrcode/<string:qrcode>" : GET method will fetch restaurant with that qr code.
+    "/restaurant/qrcode/<qrcode>" : GET method will fetch restaurant with that qr code.
     
 2. For USER related:
     "/user/register"        : POST method will create a new register
@@ -175,7 +175,7 @@ def fetch_restaurant_menu(restaurant_id):
         return makeResponse.db_conn_error()
 
 # [POST] Update menu_item by item_id
-@main_blueprint.route("/restaurant/menu/update", methods=['POST'])
+@main_blueprint.route("/update/restaurant/menu", methods=['POST'])
 def update_menu_item():
     db_conn = get_sqldb()
     if db_conn is not None:
@@ -192,7 +192,7 @@ def update_menu_item():
 ############################################################################################
 
 # [POST] Create new nutrition
-@main_blueprint.route("restaurant/menu/nutrition", methods = ['POST'])
+@main_blueprint.route("/restaurant/menu/nutrition", methods = ['POST'])
 def create_nutrition():
     db_conn = get_sqldb()
     if db_conn is not None:
@@ -203,7 +203,7 @@ def create_nutrition():
         return makeResponse.db_conn_error()
     
 # [GET] Fetch all nutritions
-@main_blueprint.route("restaurant/menu/nutrition", methods = ['GET'])
+@main_blueprint.route("/restaurant/menu/nutrition", methods = ['GET'])
 def fetchall_nutritions():
     db_conn = get_sqldb()
     if db_conn is not None:
@@ -225,7 +225,7 @@ def fetch_nutrition_by_itemId(item_id):
         return makeResponse.db_conn_error()
 
 # [POST] Update the nutrition of the particular item_id
-@main_blueprint.route("/restaurant/menu/nutrition/update", methods = ['POST'])
+@main_blueprint.route("/update/restaurant/menu/nutrition", methods = ['POST'])
 def update_nutrition_by_itemId():
     db_conn = get_sqldb()
     if db_conn is not None:
