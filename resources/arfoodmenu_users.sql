@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `usrId` char(10) NOT NULL,
   `usrpassword` char(8) NOT NULL,
-  `rid` int NOT NULL AUTO_INCREMENT,
+  `rid` int ,
   PRIMARY KEY (`usrId`),
   KEY `rid` (`rid`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `restaurant` (`rid`)

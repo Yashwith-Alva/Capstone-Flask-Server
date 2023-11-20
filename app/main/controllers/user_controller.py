@@ -45,3 +45,13 @@ class UserController:
             return makeResponse.bad_request("Server Error", "restaurant_id is required")
         response = self.userService_.update_password(password, restaurant_id)
         return response
+    
+    # Return restaurant id
+    def get_restaurant_id(self, user_id, password):
+        if not user_id or not password:
+            return makeResponse.bad_request("Server Error", "userId and password are required")
+
+        # Assuming you have a method named get_restaurant_id in your service
+        response = self.userService_.get_restaurant_id(user_id, password)
+        return response
+

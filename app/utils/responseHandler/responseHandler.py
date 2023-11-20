@@ -63,18 +63,20 @@ class MakeResponse:
         }), 400
         
     # 404 Data not found
-    def data_not_found(self, message):
+    # 404 Data not found
+    def not_found(self, message):
         '''
-        Makes a 404 Data Not Found response.
-        
+        Makes a 200 Data Not Found response.
+
         Parameters:
         - message (string) : Inform which field has no data.
         '''
         return jsonify({
             "status": "success",
-            "message" : message,
-            "data" : None
-        }), 404
+            "message": message,
+            "data": None
+        }), 200
+
         
     
     # Database connection error

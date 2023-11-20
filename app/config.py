@@ -26,8 +26,8 @@ class DevelopmentConfig(Config):
     MYSQL_HOST = 'localhost'
     MYSQL_PORT = 3306
     MYSQL_USER = 'root'
-    MYSQL_PASSWORD = 'Yashwith@2002'
-    MYSQL_DB = 'arfoodmenu'
+    MYSQL_PASSWORD = ''
+    MYSQL_DB = 'arfoodmenu_2'
     
 ##########################################################
 # Testing is set to run on debug mode with testing.
@@ -38,8 +38,8 @@ class TestingConfig(Config):
     MYSQL_HOST = 'localhost'
     MYSQL_PORT = 3306
     MYSQL_USER = 'root'
-    MYSQL_PASSWORD = 'Yashwith@2002'
-    MYSQL_DB = 'arfoodmenu'
+    MYSQL_PASSWORD = ''
+    MYSQL_DB = 'arfoodmenu_2'
     PRESERVE_CONTEXT_EXCEPTION = True
     
 ##########################################################
@@ -50,8 +50,8 @@ class ProductionConfig(Config):
     MYSQL_HOST = 'localhost'
     MYSQL_PORT = 3306
     MYSQL_USER = 'root'
-    MYSQL_PASSWORD = 'Yashwith@2002'
-    MYSQL_DB = 'arfoodmenu'
+    MYSQL_PASSWORD = ''
+    MYSQL_DB = 'arfoodmenu_2'
     PROPOGATE_EXCEPTIONS = True
     CAPSTONE_LOGGER = False
     

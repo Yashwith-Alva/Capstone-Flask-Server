@@ -76,3 +76,26 @@ class UserService:
             desc = {"errno" : err.errno, "errmsg" : err.msg}
             return makeResponse.bad_request("Database Error", desc)
 
+    def get_restaurant_id(self, user_id, password):
+        try:
+            cursor = self.db_connection.cursor()
+
+            # Assuming you have a table named 'users' with columns 'usrId', 'usrpassword', and 'rid'
+            select_query = "SELECT rid FROM users WHERE usrId = %s AND usrpassword = %s"
+            cursor.execute(select_query, (user_id, password))
+            result = cursor.fetchone()
+
+            if result:
+                restaurant_id = result[0]
+                return makeResponse.success({"restaurant_id": restaurant_id})
+            else:
+                return makeResponse.not_found("User not found")
+
+        except Error as err:
+            logSqlError(err)
+            desc = {"errno": err.errno, "errmsg": err.msg}
+            return makeResponse.bad_request("Database Error", desc)
+
+        finally:
+            cursor.close()
+

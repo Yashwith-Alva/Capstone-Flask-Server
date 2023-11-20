@@ -135,9 +135,24 @@ def update_password():
 
 
 # [GET]: TODO: Implement get rid by userId and password.
-@main_blueprint.route('/user/restaurant', methods = ['POST'])
+@main_blueprint.route('/user/restaurant', methods=['POST'])
 def get_restaurant_id():
-    pass
+    db_conn = get_sqldb()
+    if db_conn is not None:
+        userController_ = user_controller.UserController(db_conn)
+        # data = request.form.to_dict(flat=False)
+        # print(f"Received data: {data}")
+        # print(f"Size of received data: {len(str(data))} bytes")
+        user_id = request.form.get('loginUser')[:-1]
+        password = request.form.get('loginPass')[:-1]
+        print(user_id,len(user_id), password,len(password))
+        if not user_id or not password:
+            return makeResponse.bad_request("Server Error", "userId and password are required")
+
+        response = userController_.get_restaurant_id(user_id, password)
+        return response
+    else:
+        return makeResponse.db_conn_error()
 
 ############################################################################################
 # MENU Item METHODS
@@ -184,8 +199,6 @@ def update_menu_item():
         return response
     else:
         return makeResponse.db_conn_error()
-
-
 
 ############################################################################################
 # NUTRITION METHODS
