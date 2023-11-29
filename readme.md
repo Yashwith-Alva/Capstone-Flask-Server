@@ -136,3 +136,8 @@ In development mode the server is running at port 5000 in localhost. Hence, all 
 - It includes MySQL database used in the project. It can be directly exported into the mysql workbench.
 * It also includes various testcases that was run in thunderclient.
 * You can import the JSON file directly to the thunderclient application.
+
+# Test Cases
+```
+python -m unittest app/tests/test_user_controller.py
+```

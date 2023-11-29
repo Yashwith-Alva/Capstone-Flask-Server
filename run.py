@@ -11,7 +11,7 @@ from app import create_app
 from flask import g
 
 os.environ['FLASK_APP'] = 'run.py'
-os.environ['FLASK_ENV'] = 'development'
+os.environ['FLASK_ENV'] = 'testing'
 
 app = create_app()
 
@@ -20,4 +20,4 @@ def index():
     return "Homepage"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')

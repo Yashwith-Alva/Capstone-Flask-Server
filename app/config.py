@@ -64,11 +64,19 @@ config_by_name = dict(
 ##########################################################
 # Get config based on the environment app is running on
 ##########################################################
-def get_config():
-    environment = os.getenv('FLASK_ENV', 'development')
-    if environment == 'production':
-        return ProductionConfig
-    elif environment == 'testing':
+def get_config(str = "none"):
+    if str == "none":
+        environment = os.getenv('FLASK_ENV', 'development')
+        if environment == 'production':
+            return ProductionConfig
+        elif environment == 'testing':
+            return TestingConfig
+        else:
+            return DevelopmentConfig
+    elif str == "production":
+      return ProductionConfig
+    elif str == "testing":
         return TestingConfig
     else:
-        return DevelopmentConfig
+        return DevelopmentConfig  
+        

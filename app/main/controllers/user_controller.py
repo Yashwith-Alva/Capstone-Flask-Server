@@ -21,7 +21,7 @@ class UserController:
             return makeResponse.bad_request("Server Error", "restaurant_id is required")
         response = self.userService_.create_user(user_id, password, restaurant_id)
         return response
-        
+
     
     # Update user id
     def update_userId(self, request):
